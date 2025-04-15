@@ -1,5 +1,20 @@
 const User = require("../models/userModel");
 
+exports.signup = async (req, res) => {
+  try {
+    const newUser = await User.create({ ...req.body, role: "user" });
+    res.status(201).json({
+      message: "User created !!!",
+      data: newUser,
+    });
+  } catch (error) {
+    res.status(400).json({
+      message: "Fail to create user !!!",
+      error: error,
+    });
+  }
+};
+
 exports.createUser = async (req, res) => {
   try {
     const newUser = await User.create(req.body);
